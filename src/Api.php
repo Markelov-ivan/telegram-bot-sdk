@@ -327,6 +327,18 @@ class Api
 
         return new Message($response->getDecodedBody());
     }
+    
+    /**
+     * @return Message[]
+     */
+    public function sendMediaGroup(array $params) {
+        $response = $this->uploadFile('sendMediaGroup', $params)->getDecodedBody();
+        $result = [];
+        foreach ($response['result'] as $message) {
+            $result[] = new Message($message);
+        }
+        return $result;
+    }
 
     /**
      * Send regular audio files.
